@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class StackObject : MonoBehaviour
 {
     public Transform nodePos;
     public float posZ;
+    public GameObject hammer;
    
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,8 @@ public class StackObject : MonoBehaviour
         if (other.gameObject.tag == "Cube")
         {
 
+            StartCoroutine("MakeBiggerObj");
+           
 
             //Destroy(other.GetComponent<Collider>());
             other.gameObject.GetComponent<BoxCollider>().isTrigger = false;
@@ -54,6 +58,26 @@ public class StackObject : MonoBehaviour
                 other.gameObject.GetComponent<StackObject>().posZ = 2.6f;
             }
 
+        }
+        if (other.gameObject.tag == "button")
+        {
+            other.gameObject.GetComponent<Animation>().Play();
+            hammer.gameObject.GetComponent<Animation>().Play();
+            other.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+
+        }
+    }
+
+    IEnumerator MakeBiggerObj()
+    {
+        for (int i = StackManager.instance.vaseObject.Count - 1; i >= 0; i--)
+        {
+            int index = i;
+            Vector3 scale = new Vector3(1, 1, 1);
+            scale *= 1.5f;
+            StackManager.instance.vaseObject[index].transform.DOScale(scale, 0.1f).OnComplete(() =>
+             StackManager.instance.vaseObject[index].transform.DOScale(1, 0.1f));
+            yield return new WaitForSeconds(0.05f);
         }
     }
 

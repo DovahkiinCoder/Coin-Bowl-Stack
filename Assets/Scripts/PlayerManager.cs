@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject cameraPos;
     bool lastFinish;
     //--------------------------------------------
+    
 
 
 
@@ -34,7 +35,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-
+       
     }
 
 
@@ -51,6 +52,8 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Coin")
         {
+            
+
         }
         if (other.gameObject.tag == "Finish")
         {
@@ -58,15 +61,11 @@ public class PlayerManager : MonoBehaviour
         }
 
 
-
-
-
-
-        IEnumerator Win()
+        /*IEnumerator Win()
         {
             yield return new WaitForSeconds(1f);
 
-        }
+        }*/
 
     }
 
@@ -95,6 +94,7 @@ public class PlayerManager : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 isStart = true;
+                
             }
         }
     }

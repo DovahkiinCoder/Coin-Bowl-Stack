@@ -5,30 +5,39 @@ using DG.Tweening;
 
 public class StackObject : MonoBehaviour
 {
+    public static StackObject instance;
     public Transform nodePos;
     public float posZ;
-    public GameObject hammer;
+    
    
     // Start is called before the first frame update
     void Start()
     {
 
     }
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        if (StackManager.instance.vaseObject[0])
+        {
+            if (StackManager.instance.vaseObject[0].gameObject == gameObject)
+            {
+                transform.position = new Vector3(nodePos.position.x, nodePos.position.y, nodePos.position.z + posZ);
+
+            }
+            else
+            {
+                transform.position = new Vector3(Mathf.Lerp(transform.position.x, nodePos.position.x, Time.deltaTime * 20), nodePos.position.y, nodePos.position.z + posZ);
+
+            }
+        }
        
-        if (StackManager.instance.vaseObject[0].gameObject == gameObject)
-        {
-            transform.position = new Vector3(nodePos.position.x, nodePos.position.y, nodePos.position.z + posZ);
-
-        }
-        else
-        {
-            transform.position = new Vector3(Mathf.Lerp(transform.position.x, nodePos.position.x, Time.deltaTime * 20), nodePos.position.y, nodePos.position.z + posZ);
-
-        }
+       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,13 +68,7 @@ public class StackObject : MonoBehaviour
             }
 
         }
-        if (other.gameObject.tag == "button")
-        {
-            other.gameObject.GetComponent<Animation>().Play();
-            hammer.gameObject.GetComponent<Animation>().Play();
-            other.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-
-        }
+        
     }
 
     IEnumerator MakeBiggerObj()

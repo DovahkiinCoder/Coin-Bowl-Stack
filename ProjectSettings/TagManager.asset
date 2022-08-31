@@ -8,6 +8,8 @@ TagManager:
   - panel1
   - panel
   - button
+  - Hammer
+  - MultipleCoin
   layers:
   - Default
   - TransparentFX

@@ -12,6 +12,8 @@ public class ObstacleManager : MonoBehaviour
 
             DestroyVase(other);
             DestroyVaseCoin(other);
+            LeftObjectRemove();
+
             //---------------------DENEME------------------------------
             /*StackManager.instance.vaseObject.Remove(other.gameObject);
             StackManager.instance.vaseCount--;
@@ -19,6 +21,22 @@ public class ObstacleManager : MonoBehaviour
             //---------------------DENEME------------------------------
 
         }
+    }
+    public void LeftObjectRemove()
+    {
+
+
+        StackManager.instance.lastVaseStack = StackManager.instance.vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
+        StackManager.instance.vaseObject.RemoveAt(StackManager.instance.vaseObject.Count - 1);
+        //lastVaseStack.gameObject.GetComponent<StackObject>().enabled = false;
+        Destroy(StackManager.instance.lastVaseStack.GetComponent<Collider>());
+        Destroy(StackManager.instance.lastVaseStack.gameObject.GetComponent<StackObject>());
+        StackManager.instance.vaseCount--;
+        StackManager.instance.vaseStack = null;
+        //StackManager.instance.lastVaseStack = StackManager.instance.vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
+        //StackManager.instance.vaseStack = StackManager.instance.vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
+
+
     }
     public void DestroyVase(Collider other)
     {

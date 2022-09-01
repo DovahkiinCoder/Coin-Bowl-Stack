@@ -1,30 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ShowerManager : MonoBehaviour
 {
+    public TextMeshPro coinText;
+    public float a;
+    public enum UpgradeCoin { First, Second, Third };
+    public UpgradeCoin CoinUpgrade;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Cube")
         {
-            
-            GameObject money = Instantiate(Resources.Load<GameObject>("1cent"), other.transform.position, Quaternion.identity);
-            StartCoroutine(TimeBig(money));
-            money.transform.SetParent(other.gameObject.transform);
-
+            CoinLocation(other);
         }
     }
 
@@ -34,6 +35,228 @@ public class ShowerManager : MonoBehaviour
         {
             other.transform.GetChild(i).gameObject.SetActive(true);
             yield return new WaitForSeconds(.1f);
+        }
+    }
+
+    IEnumerator FirstCoin(GameObject other, float yPos)
+    {
+
+        a += 0.5f;
+        coinText.text = a.ToString();
+        GameObject money = Instantiate(Resources.Load<GameObject>("1cent"), new Vector3(other.transform.position.x, other.transform.position.y + yPos, other.transform.position.z), Quaternion.identity);
+        StartCoroutine(TimeBig(money));
+        money.transform.SetParent(other.gameObject.transform);
+
+        yield return null;
+
+        
+    }
+
+    IEnumerator SecondCoin(GameObject other, float yPos)
+    {
+        a += 2.5f;
+        coinText.text = a.ToString();
+        GameObject money = Instantiate(Resources.Load<GameObject>("2cent"), new Vector3(other.transform.position.x, other.transform.position.y + yPos, other.transform.position.z), Quaternion.identity);
+        StartCoroutine(TimeBig(money));
+        money.transform.SetParent(other.gameObject.transform);
+
+        yield return null;
+
+        
+    }
+
+    IEnumerator ThirdCoin(GameObject other, float yPos)
+    {
+        a += 5f;
+        coinText.text = a.ToString();
+        GameObject money = Instantiate(Resources.Load<GameObject>("5cent"), new Vector3(other.transform.position.x, other.transform.position.y + yPos, other.transform.position.z), Quaternion.identity);
+        StartCoroutine(TimeBig(money));
+        money.transform.SetParent(other.gameObject.transform);
+
+        yield return null;
+
+        
+    }
+
+    public void DoBoolalt(Collider other)
+    {
+        other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().alt = true;
+        other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt = true;
+        other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt = true;
+    }
+    public void DoBoolorta(Collider other)
+    {
+        other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().orta = true;
+        other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta = true;
+        other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta = true;
+    }
+    public void DoBoolust(Collider other)
+    {
+        other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().üst = true;
+        other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().üst = true;
+        other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst = true;
+    }
+
+    public void CoinLocation(Collider other)
+    {
+        switch (CoinUpgrade)
+        {
+            case UpgradeCoin.First:
+
+
+                if (other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().üst == false)
+                {
+                    StartCoroutine(FirstCoin(other.gameObject, 0));
+                    DoBoolalt(other);
+                }
+
+                if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(1).gameObject.activeSelf)
+                    {
+                        StartCoroutine(FirstCoin(other.gameObject, 0));
+                        DoBoolalt(other);
+                    }
+                }
+                if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(1).gameObject.activeSelf)
+                    {
+                        StartCoroutine(FirstCoin(other.gameObject, .5f));
+                        DoBoolorta(other);
+                    }
+                }
+
+                if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        StartCoroutine(FirstCoin(other.gameObject, 0));
+                        DoBoolalt(other);
+                    }
+                }
+                if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        StartCoroutine(FirstCoin(other.gameObject, 1f));
+                        DoBoolorta(other);
+                    }
+                }
+                if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        StartCoroutine(FirstCoin(other.gameObject, 2f));
+                        DoBoolust(other);
+                    }
+                }
+
+
+                break;
+            case UpgradeCoin.Second:
+                if (other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().üst == false)
+                {
+                    StartCoroutine(FirstCoin(other.gameObject, 0));
+                    DoBoolalt(other);
+                }
+
+                if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(1).gameObject.activeSelf)
+                    {
+                        StartCoroutine(SecondCoin(other.gameObject, 0));
+                        DoBoolalt(other);
+                    }
+                }
+                if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(1).gameObject.activeSelf)
+                    {
+                        StartCoroutine(SecondCoin(other.gameObject, .5f));
+                        DoBoolorta(other);
+                    }
+                }
+
+                if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        StartCoroutine(SecondCoin(other.gameObject, 0));
+                        DoBoolalt(other);
+                    }
+                }
+                if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        StartCoroutine(SecondCoin(other.gameObject, 1f));
+                        DoBoolorta(other);
+                    }
+                }
+                if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        StartCoroutine(SecondCoin(other.gameObject, 2f));
+                        DoBoolust(other);
+                    }
+                }
+
+                break;
+            case UpgradeCoin.Third:
+                if (other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().üst == false)
+                {
+                    StartCoroutine(ThirdCoin(other.gameObject, 0));
+                    DoBoolalt(other);
+                }
+
+                if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(1).gameObject.activeSelf)
+                    {
+                        StartCoroutine(ThirdCoin(other.gameObject, 0));
+                        DoBoolalt(other);
+                    }
+                }
+                if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(1).gameObject.activeSelf)
+                    {
+                        StartCoroutine(ThirdCoin(other.gameObject, .5f));
+                        DoBoolorta(other);
+                    }
+                }
+
+                if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        StartCoroutine(ThirdCoin(other.gameObject, 0));
+                        DoBoolalt(other);
+                    }
+                }
+                if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        StartCoroutine(ThirdCoin(other.gameObject, 1f));
+                        DoBoolorta(other);
+                    }
+                }
+                if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
+                {
+                    if (other.gameObject.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        StartCoroutine(ThirdCoin(other.gameObject, 2f));
+                        DoBoolust(other);
+                    }
+                }
+
+
+                break;
+            default:
+                break;
         }
     }
 }

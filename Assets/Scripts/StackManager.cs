@@ -7,6 +7,7 @@ public class StackManager : MonoBehaviour
     public static StackManager instance;
     public int vaseCount;
     public GameObject player;
+    public  Transform lastVaseStack;
     public Transform vaseStack;
     public List<GameObject> vaseObject = new List<GameObject>();
     private void Awake()
@@ -24,6 +25,7 @@ public class StackManager : MonoBehaviour
     {
         
     }
+    
 
     private void OnTriggerEnter(Collider other)
     {

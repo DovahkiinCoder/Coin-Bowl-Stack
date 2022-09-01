@@ -69,7 +69,7 @@ public class GateManager : MonoBehaviour
             }
             else
             {
-                continue;
+                break;
             }
            
             

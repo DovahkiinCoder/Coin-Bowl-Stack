@@ -7,7 +7,7 @@
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "Queue"="transparent" }
         LOD 100
          Pass
         {
@@ -19,10 +19,10 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-        // make fog work
-        #pragma multi_compile_fog
+            //make fog work
+            #pragma multi_compile_fog
 
-        #include "UnityCG.cginc"
+            #include "UnityCG.cginc"
 
         struct appdata
         {

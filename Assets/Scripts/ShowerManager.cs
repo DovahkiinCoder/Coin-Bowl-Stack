@@ -5,10 +5,12 @@ using TMPro;
 
 public class ShowerManager : MonoBehaviour
 {
+    public static ShowerManager instance;
     public TextMeshPro coinText;
     public float a;
-    public enum UpgradeCoin { First, Second, Third };
+    public enum UpgradeCoin { First, Second, Third,};
     public UpgradeCoin CoinUpgrade;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,15 +23,21 @@ public class ShowerManager : MonoBehaviour
 
     }
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Cube")
         {
             CoinLocation(other);
+
         }
     }
 
-    IEnumerator TimeBig(GameObject other)
+    public IEnumerator TimeBig(GameObject other)
     {
         for (int i = 0; i < other.transform.childCount; i++)
         {
@@ -65,7 +73,7 @@ public class ShowerManager : MonoBehaviour
         
     }
 
-    IEnumerator ThirdCoin(GameObject other, float yPos)
+    public IEnumerator ThirdCoin(GameObject other, float yPos)
     {
         a += 5f;
         coinText.text = a.ToString();
@@ -108,6 +116,8 @@ public class ShowerManager : MonoBehaviour
                 {
                     StartCoroutine(FirstCoin(other.gameObject, 0));
                     DoBoolalt(other);
+                    break;
+
                 }
 
                 if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().üst == false)
@@ -116,6 +126,8 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(FirstCoin(other.gameObject, 0));
                         DoBoolalt(other);
+                        break;
+
                     }
                 }
                 if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().üst == false)
@@ -124,6 +136,8 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(FirstCoin(other.gameObject, .5f));
                         DoBoolorta(other);
+                        break;
+
                     }
                 }
 
@@ -133,6 +147,8 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(FirstCoin(other.gameObject, 0));
                         DoBoolalt(other);
+                        break;
+
                     }
                 }
                 if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
@@ -141,6 +157,8 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(FirstCoin(other.gameObject, 1f));
                         DoBoolorta(other);
+                        break;
+
                     }
                 }
                 if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
@@ -149,6 +167,8 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(FirstCoin(other.gameObject, 2f));
                         DoBoolust(other);
+                        break;
+
                     }
                 }
 
@@ -159,6 +179,8 @@ public class ShowerManager : MonoBehaviour
                 {
                     StartCoroutine(FirstCoin(other.gameObject, 0));
                     DoBoolalt(other);
+                    break;
+
                 }
 
                 if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().üst == false)
@@ -167,6 +189,8 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(SecondCoin(other.gameObject, 0));
                         DoBoolalt(other);
+                        break;
+
                     }
                 }
                 if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().üst == false)
@@ -175,6 +199,8 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(SecondCoin(other.gameObject, .5f));
                         DoBoolorta(other);
+                        break;
+
                     }
                 }
 
@@ -184,6 +210,7 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(SecondCoin(other.gameObject, 0));
                         DoBoolalt(other);
+                        break;
                     }
                 }
                 if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
@@ -192,6 +219,8 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(SecondCoin(other.gameObject, 1f));
                         DoBoolorta(other);
+                        break;
+
                     }
                 }
                 if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
@@ -200,6 +229,10 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(SecondCoin(other.gameObject, 2f));
                         DoBoolust(other);
+                        break;
+
+                        
+
                     }
                 }
 
@@ -209,6 +242,8 @@ public class ShowerManager : MonoBehaviour
                 {
                     StartCoroutine(ThirdCoin(other.gameObject, 0));
                     DoBoolalt(other);
+                    break;
+
                 }
 
                 if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().üst == false)
@@ -217,6 +252,8 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(ThirdCoin(other.gameObject, 0));
                         DoBoolalt(other);
+                        break;
+
                     }
                 }
                 if (other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(1).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(0).GetComponent<ControlManager>().üst == false)
@@ -225,6 +262,8 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(ThirdCoin(other.gameObject, .5f));
                         DoBoolorta(other);
+                        break;
+
                     }
                 }
 
@@ -234,6 +273,9 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(ThirdCoin(other.gameObject, 0));
                         DoBoolalt(other);
+                        break;
+
+
                     }
                 }
                 if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == false && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
@@ -242,6 +284,10 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(ThirdCoin(other.gameObject, 1f));
                         DoBoolorta(other);
+                        break;
+
+
+
                     }
                 }
                 if (other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().alt == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().orta == true && other.gameObject.transform.GetChild(2).GetComponent<ControlManager>().üst == false)
@@ -250,8 +296,15 @@ public class ShowerManager : MonoBehaviour
                     {
                         StartCoroutine(ThirdCoin(other.gameObject, 2f));
                         DoBoolust(other);
+                        break;
+
+
                     }
                 }
+
+
+               
+           
 
 
                 break;
@@ -259,4 +312,7 @@ public class ShowerManager : MonoBehaviour
                 break;
         }
     }
+
+    
+
 }

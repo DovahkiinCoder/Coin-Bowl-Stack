@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class StackManager : MonoBehaviour
 {
@@ -25,7 +26,38 @@ public class StackManager : MonoBehaviour
     {
         
     }
-    
+    public void LeftObjectRemove()
+    {
+        for (int i = 0; i < vaseObject.Count-1; i++)
+        {
+            
+            Destroy(vaseObject[i].gameObject.transform.GetComponent<StackObject>());
+            vaseObject[i].transform.DOJump(new Vector3(vaseObject[i].transform.position.x, vaseObject[i].transform.position.y, transform.position.z + 20f),2,1,.5f);
+            vaseObject[i].transform.GetComponent<BoxCollider>().isTrigger = true;
+            vaseObject.RemoveAt(i);
+
+
+            if(i== (vaseObject.Count - 1))
+            {
+                vaseStack = null;
+                lastVaseStack = null;
+                vaseCount = 0;
+            }
+        }
+
+
+        //lastVaseStack = vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
+        //vaseObject.RemoveAt(vaseObject.Count - 1);
+        //lastVaseStack.gameObject.GetComponent<StackObject>().enabled = false;
+        //Destroy(StackManager.instance.lastVaseStack.GetComponent<Collider>());
+        //
+        //StackManager.instance.vaseCount--;
+        //StackManager.instance.lastVaseStack = StackManager.instance.vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
+        //StackManager.instance.vaseStack = StackManager.instance.vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
+
+
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -50,9 +82,13 @@ public class StackManager : MonoBehaviour
             if (vaseCount > 0)
             {
                 other.gameObject.GetComponent<StackObject>().posZ = 1.5f;
-            }
-            
+            }            
 
+        }
+        if (other.gameObject.tag== "WallObstacle")
+        {
+            LeftObjectRemove();
+            //other.gameObject.GetComponent<BoxCollider>().enabled = false;
         }
     }
 }

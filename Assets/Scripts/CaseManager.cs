@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 
 public class CaseManager : MonoBehaviour
 {
     public TextMeshPro FinalText;
+    public TextMeshProUGUI CardText;
     float b;
     public GameObject bearObj;
-    
+    //public bool isFinal;
+
     // Start is called before the first frame update
     private void Update()
     {
         FinalText.text = b.ToString();
-        
-        
+        CardText.text = PlayerPrefs.GetFloat("CardCoin") + "";
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -32,11 +36,12 @@ public class CaseManager : MonoBehaviour
 
             if (PlayerPrefs.GetFloat("Coin") == 0)
             {
-                PlayerPrefs.SetFloat("MatValue",((b/100)*2));
+                PlayerPrefs.SetFloat("MatValue", ((b / 100) * 2));
                 bearObj.transform.GetComponent<FinalManager>().isFlag = true;
-               
+                PlayerPrefs.SetFloat("CardCoin", PlayerPrefs.GetFloat("CardCoin")+(PlayerPrefs.GetFloat("MatValue")*100)/2);
+
             }
-           
+
             //---------------------DENEME------------------------------
             /*StackManager.instance.vaseObject.Remove(other.gameObject);
             StackManager.instance.vaseCount--;
@@ -92,7 +97,7 @@ public class CaseManager : MonoBehaviour
                     Destroy(other.gameObject.transform.GetChild(i).transform.GetChild(j).gameObject, 1f);
                 }
                 break;
-               
+
             }
         }
 

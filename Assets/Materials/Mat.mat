@@ -132,7 +132,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GradientAngle: 181.90201
+    - _GradientAngle: 181
     - _GradientCenterX: 360
     - _GradientCenterY: 3.24
     - _GradientEnabled: 1

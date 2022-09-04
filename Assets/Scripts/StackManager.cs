@@ -30,19 +30,27 @@ public class StackManager : MonoBehaviour
     {
         for (int i = 0; i < vaseObject.Count-1; i++)
         {
-            
+                        
+            /*vaseObject.RemoveAt(i);
             Destroy(vaseObject[i].gameObject.transform.GetComponent<StackObject>());
-            vaseObject[i].transform.DOJump(new Vector3(vaseObject[i].transform.position.x, vaseObject[i].transform.position.y, transform.position.z + 20f),2,1,.5f);
+            vaseObject[i].transform.DOJump(new Vector3(vaseObject[i].transform.position.x, vaseObject[i].transform.position.y, transform.position.z + 10f),5,1,.5f);
             vaseObject[i].transform.GetComponent<BoxCollider>().isTrigger = true;
-            vaseObject.RemoveAt(i);
 
 
-            if(i== (vaseObject.Count - 1))
-            {
+            /*if(i== (vaseObject.Count - 1))
                 vaseStack = null;
                 lastVaseStack = null;
                 vaseCount = 0;
-            }
+            {
+            }*/
+
+            StackManager.instance.lastVaseStack = StackManager.instance.vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
+            StackManager.instance.vaseObject.RemoveAt(StackManager.instance.vaseObject.Count - 1);
+            //lastVaseStack.gameObject.GetComponent<StackObject>().enabled = false;
+            Destroy(StackManager.instance.lastVaseStack.GetComponent<Collider>());
+            Destroy(StackManager.instance.lastVaseStack.gameObject.GetComponent<StackObject>());
+            StackManager.instance.vaseCount--;
+            StackManager.instance.vaseStack = null;
         }
 
 

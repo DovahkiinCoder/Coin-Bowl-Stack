@@ -8,6 +8,8 @@ public class StackObject : MonoBehaviour
     public static StackObject instance;
     public Transform nodePos;
     public float posZ;
+    public int allCount;
+    
 
 
     // Start is called before the first frame update

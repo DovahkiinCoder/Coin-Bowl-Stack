@@ -5,9 +5,10 @@ using TMPro;
 
 public class ShowerManager : MonoBehaviour
 {
+
     public static ShowerManager instance;
     public TextMeshPro coinText;
-    public float a;
+    public float a; 
     public enum UpgradeCoin { First, Second, Third,};
     public UpgradeCoin CoinUpgrade;
 
@@ -20,6 +21,8 @@ public class ShowerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
+        coinText.text = PlayerPrefs.GetFloat("Coin") + "";
 
     }
 
@@ -48,8 +51,9 @@ public class ShowerManager : MonoBehaviour
 
     IEnumerator FirstCoin(GameObject other, float yPos)
     {
-
-        a += 0.5f;
+        a += 1;
+        other.gameObject.transform.GetComponent<StackObject>().allCount += 1;
+        PlayerPrefs.SetFloat("Coin", PlayerPrefs.GetFloat("Coin") + 0.5f);
         coinText.text = a.ToString();
         GameObject money = Instantiate(Resources.Load<GameObject>("1cent"), new Vector3(other.transform.position.x, other.transform.position.y + yPos, other.transform.position.z), Quaternion.identity);
         StartCoroutine(TimeBig(money));
@@ -62,7 +66,10 @@ public class ShowerManager : MonoBehaviour
 
     IEnumerator SecondCoin(GameObject other, float yPos)
     {
-        a += 2.5f;
+        PlayerPrefs.SetFloat("Coin", PlayerPrefs.GetFloat("Coin") + 2.5f);
+        a += 2;
+        other.gameObject.transform.GetComponent<StackObject>().allCount += 2;
+
         coinText.text = a.ToString();
         GameObject money = Instantiate(Resources.Load<GameObject>("2cent"), new Vector3(other.transform.position.x, other.transform.position.y + yPos, other.transform.position.z), Quaternion.identity);
         StartCoroutine(TimeBig(money));
@@ -73,9 +80,12 @@ public class ShowerManager : MonoBehaviour
         
     }
 
-    public IEnumerator ThirdCoin(GameObject other, float yPos)
+    IEnumerator ThirdCoin(GameObject other, float yPos)
     {
-        a += 5f;
+        PlayerPrefs.SetFloat("Coin", PlayerPrefs.GetFloat("Coin") + 5);
+        a += 5;
+        other.gameObject.transform.GetComponent<StackObject>().allCount += 5;
+
         coinText.text = a.ToString();
         GameObject money = Instantiate(Resources.Load<GameObject>("5cent"), new Vector3(other.transform.position.x, other.transform.position.y + yPos, other.transform.position.z), Quaternion.identity);
         StartCoroutine(TimeBig(money));

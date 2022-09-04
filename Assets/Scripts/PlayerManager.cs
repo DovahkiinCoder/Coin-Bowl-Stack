@@ -35,7 +35,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-       
+        PlayerPrefs.SetInt("Coin", 0);
+
     }
 
 
@@ -48,26 +49,9 @@ public class PlayerManager : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Coin")
-        {
-            
-
-        }
-        if (other.gameObject.tag == "Finish")
-        {
-
-        }
+    
 
 
-        /*IEnumerator Win()
-        {
-            yield return new WaitForSeconds(1f);
-
-        }*/
-
-    }
 
     void PlayerDistance() 
     {

@@ -7,19 +7,18 @@
     }
     SubShader
     {
-        Tags { "Queue"="transparent" }
+        Tags {"Queue" = "Transparent"}
         LOD 100
-         Pass
+         pass
         {
             Cull Off
-            ZWrite Off //
-
+            ZWrite OFF            
             ZTest Always
+            
 
             CGPROGRAM
             #pragma vertex vert
-            #pragma fragment frag
-            //make fog work
+            #pragma fragment frag            
             #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
@@ -27,13 +26,15 @@
         struct appdata
         {
             float4 vertex : POSITION;
-
+            
         };
 
         struct v2f
         {
 
             float4 vertex : SV_POSITION;
+            
+
         };
 
         float4 _Color;
@@ -88,7 +89,7 @@
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
-
+                
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture

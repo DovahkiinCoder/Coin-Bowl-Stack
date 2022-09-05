@@ -8,9 +8,11 @@ public class StackManager : MonoBehaviour
     public static StackManager instance;
     public int vaseCount;
     public GameObject player;
-    public  Transform lastVaseStack;
+    public Transform lastVaseStack;
+    public GameObject last;
     public Transform vaseStack;
     public List<GameObject> vaseObject = new List<GameObject>();
+    
     private void Awake()
     {
         instance = this;
@@ -24,44 +26,37 @@ public class StackManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
     public void LeftObjectRemove()
     {
-        for (int i = 0; i < vaseObject.Count-1; i++)
+        
+        for (int i = vaseObject.Count-1; i>=0; i--)
         {
-                        
-            /*vaseObject.RemoveAt(i);
+           Debug.Log(vaseObject.Count);
+           Destroy(vaseObject[i].gameObject.transform.GetComponent<StackObject>());
+           vaseObject[i].transform.GetComponent<BoxCollider>().isTrigger = true;
+           vaseObject[i].transform.DOJump(last.transform.position + new Vector3(Random.Range(-0.5f,0.5f),0, Random.Range(-2, 2)) * 10, 5, 1, .5f);
+           vaseObject.RemoveAt(i);
+           vaseCount--;
+           vaseStack = null;
+           //lastVaseStack = vaseObject[vaseObject.Count - 1].transform;
+
+
+            /*vaseObject[i].gameObject.transform.GetComponent<Collider>().enabled = false;
+            //vaseObject[i].transform.GetComponent<BoxCollider>().isTrigger = true;
             Destroy(vaseObject[i].gameObject.transform.GetComponent<StackObject>());
-            vaseObject[i].transform.DOJump(new Vector3(vaseObject[i].transform.position.x, vaseObject[i].transform.position.y, transform.position.z + 10f),5,1,.5f);
-            vaseObject[i].transform.GetComponent<BoxCollider>().isTrigger = true;
+            vaseObject[i].gameObject.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            vaseObject[i].gameObject.transform.GetComponent<Collider>().enabled = true;
+            vaseCount--;
+            //lastVaseStack = vaseObject[vaseObject.Count - 1].transform;
+            //vaseStack = vaseObject[vaseObject.Count - 1].transform;           
+             if (i == 0)
+             {
+                 break;
+             }*/
 
-
-            /*if(i== (vaseObject.Count - 1))
-                vaseStack = null;
-                lastVaseStack = null;
-                vaseCount = 0;
-            {
-            }*/
-
-            StackManager.instance.lastVaseStack = StackManager.instance.vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
-            StackManager.instance.vaseObject.RemoveAt(StackManager.instance.vaseObject.Count - 1);
-            //lastVaseStack.gameObject.GetComponent<StackObject>().enabled = false;
-            Destroy(StackManager.instance.lastVaseStack.GetComponent<Collider>());
-            Destroy(StackManager.instance.lastVaseStack.gameObject.GetComponent<StackObject>());
-            StackManager.instance.vaseCount--;
-            StackManager.instance.vaseStack = null;
         }
-
-
-        //lastVaseStack = vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
-        //vaseObject.RemoveAt(vaseObject.Count - 1);
-        //lastVaseStack.gameObject.GetComponent<StackObject>().enabled = false;
-        //Destroy(StackManager.instance.lastVaseStack.GetComponent<Collider>());
-        //
-        //StackManager.instance.vaseCount--;
-        //StackManager.instance.lastVaseStack = StackManager.instance.vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
-        //StackManager.instance.vaseStack = StackManager.instance.vaseObject[StackManager.instance.vaseObject.Count - 1].transform;
 
 
     }
@@ -90,14 +85,19 @@ public class StackManager : MonoBehaviour
             if (vaseCount > 0)
             {
                 other.gameObject.GetComponent<StackObject>().posZ = 1.5f;
-            }            
+            }
 
         }
-        if (other.gameObject.tag== "WallObstacle")
+        if (other.gameObject.tag == "WallObstacle")
         {
+            other.gameObject.GetComponent<Collider>().enabled = false;
             LeftObjectRemove();
             //other.gameObject.GetComponent<BoxCollider>().enabled = false;
         }
     }
+
+
+   
+    
 }
 

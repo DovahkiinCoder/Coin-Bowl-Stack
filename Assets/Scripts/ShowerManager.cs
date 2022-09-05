@@ -52,7 +52,7 @@ public class ShowerManager : MonoBehaviour
     IEnumerator FirstCoin(GameObject other, float yPos)
     {
         a += 1;
-        other.gameObject.transform.GetComponent<StackObject>().allCount += 1;
+        other.gameObject.transform.GetComponent<AllCount>().allCount += 1;
         PlayerPrefs.SetFloat("Coin", PlayerPrefs.GetFloat("Coin") + 0.5f);
         coinText.text = a.ToString();
         GameObject money = Instantiate(Resources.Load<GameObject>("1cent"), new Vector3(other.transform.position.x, other.transform.position.y + yPos, other.transform.position.z), Quaternion.identity);
@@ -68,7 +68,7 @@ public class ShowerManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("Coin", PlayerPrefs.GetFloat("Coin") + 2.5f);
         a += 2;
-        other.gameObject.transform.GetComponent<StackObject>().allCount += 2;
+        other.gameObject.transform.GetComponent<AllCount>().allCount += 2;
 
         coinText.text = a.ToString();
         GameObject money = Instantiate(Resources.Load<GameObject>("2cent"), new Vector3(other.transform.position.x, other.transform.position.y + yPos, other.transform.position.z), Quaternion.identity);
@@ -84,7 +84,7 @@ public class ShowerManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("Coin", PlayerPrefs.GetFloat("Coin") + 5);
         a += 5;
-        other.gameObject.transform.GetComponent<StackObject>().allCount += 5;
+        other.gameObject.transform.GetComponent<AllCount>().allCount += 5;
 
         coinText.text = a.ToString();
         GameObject money = Instantiate(Resources.Load<GameObject>("5cent"), new Vector3(other.transform.position.x, other.transform.position.y + yPos, other.transform.position.z), Quaternion.identity);

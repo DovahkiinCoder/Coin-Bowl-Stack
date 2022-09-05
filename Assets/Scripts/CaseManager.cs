@@ -24,8 +24,8 @@ public class CaseManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Cube")
         {
-            b += other.gameObject.GetComponent<StackObject>().allCount;
-            PlayerPrefs.SetFloat("Coin", PlayerPrefs.GetFloat("Coin") - other.gameObject.GetComponent<StackObject>().allCount);
+            b += other.gameObject.GetComponent<AllCount>().allCount;
+            PlayerPrefs.SetFloat("Coin", PlayerPrefs.GetFloat("Coin") - other.gameObject.GetComponent<AllCount>().allCount);
             DestroyVase(other);
             DestroyVaseCoin(other);
             LeftObjectRemove();
